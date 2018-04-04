@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        {% for i in info %}
+        <h1>{{ i['title'] }}</h1>
+        <h3>{{ i['vote_average'] }}</h3>
+        <h3>{{ i['release_date'] }}</h3>
+        <p>{{ i['overview'] }}</p>
+        <img src="https://image.tmdb.org/t/p/w300/{{ i['poster_path']}}"} />
+        {% endfor %}
+    </div>
+{% endblock %}
