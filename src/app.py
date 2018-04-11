@@ -19,10 +19,12 @@ def search():
     if form.validate() is True:
         title = request.form['title']
         info = Search.tmdb_info(title)
+
         if not info:
             return render_template('noresults.html', title=title)
         else:
-            return render_template('search.html', title=title, info=info)
+            nyt_info = Search.nytinfo(title)
+            return render_template('search.html', title=title, info=info, nyt_info=nyt_info)
     else:
         print('3')
         return render_template('home.html')

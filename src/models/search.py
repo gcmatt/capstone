@@ -1,7 +1,9 @@
 import requests
 import json
+import os
 
-api_file = 'api_file.txt'
+script_path = os.path.dirname(os.path.abspath( __file__ ))
+api_file = os.path.join(script_path, "api_file.txt")
 api_keys = {}
 with open(api_file, 'r') as file:
     api_keys = json.loads(file.read())
@@ -23,6 +25,13 @@ class Search(object):
         data = data['results']
         return data
 
+    @classmethod
+    def nytinfo(self, title):
+        parameters = {"api-key": nyt_key, "query": title}
+        response = requests.get("https://api.nytimes.com/svc/movies/v2/reviews/search.json", params=parameters)
+        nytdata = response.json()
+        nytdata = nytdata['results']
+        return nytdata
 
     def valid_search(self):
         title = self.title
