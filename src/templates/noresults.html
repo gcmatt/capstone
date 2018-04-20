@@ -1,8 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container">
-
-        <h2>No results found for {{ title }}</h2>
-
+    <div class="form-size">
+    <div class="card-body">
+        <!-- if no results are return the web app directs you here and tells you your previous search term-->
+        <h2 class="noresults">No results found for {{ title }}</h2>
     </div>
+
+    <!-- provides the user another opportunity to search-->
+    <form id="search-form" action="/search" method="post">
+        <div class="form-group">
+            <label for="title">Search Again?</label>
+            <input type="text" id="title" class="form-control" name="title" placeholder="Enter a title to search">
+        </div>
+        <div class="text-center">
+        <button type="submit" class="btn btn-success btn-lg">Search</button>
+        </div>
+    </form>
 {% endblock %}

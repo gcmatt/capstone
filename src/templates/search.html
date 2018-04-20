@@ -1,17 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
+<div class="card" style="width: 640px">
+<!-- loop that creates a card for each movie returned -->
 {% for i in info %}
-        <h1>{{ i['title'] }}</h1>
-        <h3>{{ i['vote_average'] }}</h3>
-        <h3>{{ i['release_date'] }}</h3>
+        <div class="card-body">
+        <h3 class="card-title"> {{ i['title'] }} </h3>
+        <!-- prints the overview of the movie from tmdb database-->
         <p>{{ i['overview'] }}</p>
-        <img src="https://image.tmdb.org/t/p/w300/{{ i['poster_path']}}"} />
+        </div>
+        <!-- creates a list group with the vote average and release date for them films -->
+        <ul class="list-group list-group-flush">
+        <p class="info">Average Votes</p>
+        <li class="list-group-item">{{ i['vote_average'] }}</li>
+        <p class="info">Release Date</p>
+        <li class="list-group-item">{{ i['release_date'] }}</li>
+        </ul>
+        <!-- posts the poster image for each film to the card, it took a while to figure out the syntax to get this to work-->
+        <img class="card-img-top" src="https://image.tmdb.org/t/p/w300/{{ i['poster_path']}}"} alt="Image Not Found">
+        <div class="card-body">
+        <!-- links to the nyt review if available. There wasn't an ideal way to do this some data between the two sources such as release date
+        are inconsistent. I couldn't quickly find a solution to validating the information automatically -->
         {% for x in nyt_info %}
-            {% if i['title'] == x['display_title'] %}
-            <a href="{{ x['link']['url'] }}">{{ x['link']['suggested_link_text']}}</a>
-            {% endif %}
+                {% if i['title'] == x['display_title'] %}
+                <p class="info"><a href="{{ x['link']['url'] }}">{{ x['link']['suggested_link_text']}}</a></p>
+                {% endif %}
         {% endfor %}
+        </div>
 {% endfor %}
 </div>
 {% endblock %}
+
